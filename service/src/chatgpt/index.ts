@@ -42,8 +42,8 @@ let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
 
     // proxy, using an object
     var proxy = {
-      host: '185.199.229.156',
-      port: 7492,
+      host: '144.168.217.88',
+      port: 8780  ,
       auth: {
         username: 'vetpvyxp',
         password: '3mgw6ntpbrst'
