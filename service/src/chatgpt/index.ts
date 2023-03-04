@@ -40,7 +40,28 @@ let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
       }
     }
 
-    api = new ChatGPTAPI({ ...options })
+    // proxy, using an object
+    var proxy = {
+      host: '185.199.229.156',
+      port: 7492,
+      auth: {
+        username: 'vetpvyxp',
+        password: '3mgw6ntpbrst'
+      }
+    };
+    // api = new ChatGPTAPI({ ...options })
+    api = new ChatGPTAPI({
+      ...options,
+      fetch: (url, options = {}) => {
+        const defaultOptions = {
+          agent: new HttpsProxyAgent(proxy),
+        }
+        const mergedOptions = {
+          ...defaultOptions,
+          ...options,
+        }
+        return fetch(url, mergedOptions)
+      },
     apiModel = 'ChatGPTAPI'
   }
   else {
