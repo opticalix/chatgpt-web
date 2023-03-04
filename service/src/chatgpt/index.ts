@@ -41,28 +41,29 @@ let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
     }
 
     // proxy, using an object
-    var proxy = {
-      host: '144.168.217.88',
-      port: 8780,
-      auth: {
-        username: 'vetpvyxp',
-        password: '3mgw6ntpbrst'
-      }
-    };
-    // api = new ChatGPTAPI({ ...options })
-    api = new ChatGPTAPI({
-      ...options,
-      fetch: (url, options = {}) => {
-        const defaultOptions = {
-          agent: new HttpsProxyAgent(proxy),
-        }
-        const mergedOptions = {
-          ...defaultOptions,
-          ...options,
-        }
-        return fetch(url, mergedOptions)
-      },
-    })
+    // var proxy = {
+    //   host: '144.168.217.88',
+    //   port: 8780,
+    //   auth: {
+    //     username: 'vetpvyxp',
+    //     password: '3mgw6ntpbrst'
+    //   }
+    // };
+    // api = new ChatGPTAPI({
+    //   ...options,
+    //   fetch: (url, options = {}) => {
+    //     const defaultOptions = {
+    //       agent: new HttpsProxyAgent(proxy),
+    //     }
+    //     const mergedOptions = {
+    //       ...defaultOptions,
+    //       ...options,
+    //     }
+    //     return fetch(url, mergedOptions)
+    //   },
+    // })
+
+    api = new ChatGPTAPI({ ...options })
     apiModel = 'ChatGPTAPI'
   }
   else {
