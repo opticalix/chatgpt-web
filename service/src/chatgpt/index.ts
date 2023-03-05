@@ -4,7 +4,6 @@ import type { ChatGPTAPIOptions, ChatMessage, SendMessageOptions } from 'chatgpt
 import { ChatGPTAPI, ChatGPTUnofficialProxyAPI } from 'chatgpt'
 import { SocksProxyAgent } from 'socks-proxy-agent'
 import fetch from 'node-fetch'
-import { HttpsProxyAgent } from 'https-proxy-agent'
 import { sendResponse } from '../utils'
 import type { ApiModel, ChatContext, ChatGPTUnofficialProxyAPIOptions, ModelConfig } from '../types'
 
@@ -36,36 +35,30 @@ let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
         hostname: process.env.SOCKS_PROXY_HOST,
         port: process.env.SOCKS_PROXY_PORT,
       })
+      // const agent = new SocksProxyAgent('socks5://vetpvyxp:3mgw6ntpbrst@144.168.217.88:8780')
+
       options.fetch = (url, options) => {
         return fetch(url, { agent, ...options })
       }
     }
 
-    // proxy, using an object
-    // const proxy = {
-    //   host: '144.168.217.88',
-    //   port: 8780,
-    //   auth: {
-    //     username: 'vetpvyxp',
-    //     password: '3mgw6ntpbrst',
+    // proxy
+    // const proxyAgent = new HttpsProxyAgent('https://vetpvyxp:3mgw6ntpbrst@144.168.217.88:8780')
+    // api = new ChatGPTAPI({
+    //   ...options,
+    //   fetch: (url, options = {}) => {
+    //     const defaultOptions = {
+    //       agent: proxyAgent,
+    //     }
+    //     const mergedOptions = {
+    //       ...defaultOptions,
+    //       ...options,
+    //     }
+    //     return fetch(url, mergedOptions)
     //   },
-    // }
-    const proxyAgent = new HttpsProxyAgent('https://vetpvyxp:3mgw6ntpbrst@144.168.217.88:8780')
-    api = new ChatGPTAPI({
-      ...options,
-      fetch: (url, options = {}) => {
-        const defaultOptions = {
-          agent: proxyAgent,
-        }
-        const mergedOptions = {
-          ...defaultOptions,
-          ...options,
-        }
-        return fetch(url, mergedOptions)
-      },
-    })
+    // })
 
-    // api = new ChatGPTAPI({ ...options })
+    api = new ChatGPTAPI({ ...options })
     apiModel = 'ChatGPTAPI'
   }
   else {
