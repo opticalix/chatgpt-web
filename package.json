@@ -25,6 +25,7 @@
   "dependencies": {
     "@vueuse/core": "^9.13.0",
     "highlight.js": "^11.7.0",
+    "https-proxy-agent": "^5.0.1",
     "katex": "^0.16.4",
     "marked": "^4.2.12",
     "naive-ui": "^2.34.3",
