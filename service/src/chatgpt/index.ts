@@ -22,6 +22,7 @@ let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
   // More Info: https://github.com/transitive-bullshit/chatgpt-api
 
   if (process.env.OPENAI_API_KEY) {
+    process.stdout.write('use openai api key')
     const options: ChatGPTAPIOptions = {
       apiKey: process.env.OPENAI_API_KEY,
       debug: true,
@@ -39,8 +40,13 @@ let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
       })
       // const agent = new SocksProxyAgent('socks5://opticalix:Jhf_123@159.89.145.206:32325')
 
-      options.fetch = (url, options) => {
-        return fetch(url, { agent, ...options })
+      try {
+        options.fetch = (url, options) => {
+          process.stdout.write('fetch with url=' + url + ", agent=" + agent)
+          return fetch(url, { agent, ...options })
+        }
+      } catch (error) {
+        process.stderr.write('fetch err:', error)
       }
     }
 
@@ -64,9 +70,10 @@ let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
     apiModel = 'ChatGPTAPI'
   }
   else {
+    process.stdout.write('use openai api access token')
     const options: ChatGPTUnofficialProxyAPIOptions = {
       accessToken: process.env.OPENAI_ACCESS_TOKEN,
-      debug: false,
+      debug: true,
     }
 
     if (process.env.SOCKS_PROXY_HOST && process.env.SOCKS_PROXY_PORT) {
