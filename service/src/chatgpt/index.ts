@@ -31,11 +31,13 @@ let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
       options.apiBaseUrl = process.env.OPENAI_API_BASE_URL
 
     if (process.env.SOCKS_PROXY_HOST && process.env.SOCKS_PROXY_PORT) {
-      // const agent = new SocksProxyAgent({
-      //   hostname: process.env.SOCKS_PROXY_HOST,
-      //   port: process.env.SOCKS_PROXY_PORT,
-      // })
-      const agent = new SocksProxyAgent('socks5://opticalix:Jhf_123@159.89.145.206:32325')
+      const agent = new SocksProxyAgent({
+        hostname: process.env.SOCKS_PROXY_HOST,
+        port: process.env.SOCKS_PROXY_PORT,
+        userId: process.env.SOCKS_PROXY_USERID,
+        password: process.env.SOCKS_PROXY_PASSWORD,
+      })
+      // const agent = new SocksProxyAgent('socks5://opticalix:Jhf_123@159.89.145.206:32325')
 
       options.fetch = (url, options) => {
         return fetch(url, { agent, ...options })
