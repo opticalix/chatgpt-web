@@ -35,8 +35,8 @@ let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
       const agent = new SocksProxyAgent({
         hostname: process.env.SOCKS_PROXY_HOST,
         port: process.env.SOCKS_PROXY_PORT,
-        userId: process.env.SOCKS_PROXY_USERID,
-        password: process.env.SOCKS_PROXY_PASSWORD,
+        username: process.env.SOCKS_PROXY_USERNAME || null,
+        password: process.env.SOCKS_PROXY_PASSWORD || null,
       })
       // const agent = new SocksProxyAgent('socks5://opticalix:Jhf_123@159.89.145.206:32325')
 
@@ -80,6 +80,8 @@ let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
       const agent = new SocksProxyAgent({
         hostname: process.env.SOCKS_PROXY_HOST,
         port: process.env.SOCKS_PROXY_PORT,
+        username: process.env.SOCKS_PROXY_USERNAME || null,
+        password: process.env.SOCKS_PROXY_PASSWORD || null,
       })
       options.fetch = (url, options) => {
         return fetch(url, { agent, ...options })
